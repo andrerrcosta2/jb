@@ -1,0 +1,45 @@
+{
+  "name": "desafio1",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start:dev": "env-cmd -e development node src/index.js",
+    "start:stag": "env-cmd -e staging node src/index.js",
+    "test": "jest --verbose",
+    "test:e2e": "env-cmd -e test jest --verbose --forceExit --detectOpenHandles --maxWorkers=1 \"./test/e2e/**/*.test.js\""
+  },
+  "jest": {
+    "preset": "@shelf/jest-mongodb",
+    "testEnvironment": "node",
+    "testMatch": [
+      "**/test/e2e/**/*.test.js"
+    ],
+    "transform": {
+      "^.+\\.js$": "babel-jest"
+    },
+    "setupFilesAfterEnv": [
+      "./jest.setup.js"
+    ]
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "express-validator": "^7.1.0",
+    "mongoose": "^8.4.3"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.24.7",
+    "@babel/preset-env": "^7.24.7",
+    "@shelf/jest-mongodb": "^4.3.2",
+    "babel-jest": "^29.7.0",
+    "env-cmd": "^10.1.0",
+    "jest": "^29.7.0",
+    "supertest": "^7.0.0"
+  }
+}

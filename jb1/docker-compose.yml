@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+
+  app:
+    build: .
+    container_name: nodeapp
+    restart: always
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mongodb
+    environment:
+      MONGO_URL: mongodb://root:12345678@mongodb:27017/orderDB?authSource=admin
+    networks:
+      - jb
+    volumes:
+      - ./node_modules:/app/node_modules
+
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: 12345678
+      MONGO_INITDB_DB: orderDB
+      MONGO_INITDB_USERNAME: orderUser
+      MONGO_INITDB_PASSWORD: orderPassword
+    networks:
+      - jb
+    ports:
+      - "27017:27017"
+    # volumes:
+    #   - mongodb_data:/data/db
+
+# volumes:
+#   mongodb_data:
+#     driver: local
+
+networks:
+  jb:
+    driver: bridge
